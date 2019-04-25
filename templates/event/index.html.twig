@@ -31,6 +31,10 @@
                 <td>
                     <a href="{{ path('event_show', {'id': event.id}) }}">show</a>
                     <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
+                    {% if isLoged  %}
+                        <a href="{{ path('event_subscribe', {'id': event.id}) }}">subscribe</a>
+
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

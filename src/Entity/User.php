@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Controller\EventController;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -39,6 +41,20 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $email;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Event")
+     */
+    private $usersEvents;
+
+    public function __construct()
+    {
+        $this->usersEvents = new ArrayCollection();
+    }
+
+     public function addEventToUser(Event $event){
+        $this->usersEvents[] = $event;
+     }
 
     public function getId(): ?int
     {

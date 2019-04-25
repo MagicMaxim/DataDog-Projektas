@@ -22,6 +22,7 @@ class EventController extends AbstractController
     {
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
+            'isLoged' => $this->isGranted('ROLE_USER')
         ]);
     }
 
@@ -92,5 +93,18 @@ class EventController extends AbstractController
         }
 
         return $this->redirectToRoute('event_index');
+    }
+
+    /**
+     * @Route("/subscribe/{id}", name="event_subscribe", methods={"GET"})
+     */
+    public function subscribe(Request $request, Event $event): Response
+    {
+        $user = $this->getUser();
+        $user->addEventToUser($event);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->render('event/subscribe.html.twig');
+
     }
 }
