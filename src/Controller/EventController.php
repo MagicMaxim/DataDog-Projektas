@@ -20,9 +20,13 @@ class EventController extends AbstractController
      */
     public function index(EventRepository $eventRepository): Response
     {
+        $user = $this->getUser();
+
+
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
-            'isLoged' => $this->isGranted('ROLE_USER')
+            'isLoged' => $this->isGranted('ROLE_USER'),
+            'subscribed' => $user === null ? '' : $user->getAllUserEvents()
         ]);
     }
 
@@ -105,6 +109,18 @@ class EventController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
 
         return $this->render('event/subscribe.html.twig');
-
     }
+
+    /**
+     * @Route("/unsubscribe/{id}", name="event_unsubscribe", methods={"GET"})
+     */
+    public function unsubscribe(Request $request, Event $event): Response
+    {
+        $user = $this->getUser();
+        $user->removeEventfromUser($event);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->render('event/unsubscribe.html.twig');
+    }
+
 }

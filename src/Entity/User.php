@@ -56,6 +56,15 @@ class User implements UserInterface
         $this->usersEvents[] = $event;
      }
 
+    public function removeEventfromUser(Event $event){
+        $this->usersEvents->removeElement($event);
+    }
+
+     public function getAllUserEvents()
+     {
+         return $this->usersEvents;
+     }
+
     public function getId(): ?int
     {
         return $this->id;
