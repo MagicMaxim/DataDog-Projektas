@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e94dff1f-c7ce-4b31-b1fa-a7014b4ea014" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/event/unsubscribe.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/EventController.php" afterPath="$PROJECT_DIR$/src/Controller/EventController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Entity/User.php" afterPath="$PROJECT_DIR$/src/Entity/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/event/index.html.twig" afterPath="$PROJECT_DIR$/templates/event/index.html.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/event/subscribe.html.twig" afterPath="$PROJECT_DIR$/templates/event/subscribe.html.twig" />
-    </list>
+    <list default="true" id="e94dff1f-c7ce-4b31-b1fa-a7014b4ea014" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -436,12 +429,12 @@
       <workItem from="1552778469759" duration="1723000" />
       <workItem from="1552780363787" duration="134000" />
       <workItem from="1556195145979" duration="8668000" />
-      <workItem from="1556270091791" duration="4349000" />
+      <workItem from="1556270091791" duration="4911000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16457000" />
+    <option name="totallyTimeSpent" value="17019000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
