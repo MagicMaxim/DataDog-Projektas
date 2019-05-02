@@ -102,25 +102,25 @@ class EventController extends AbstractController
     /**
      * @Route("/subscribe/{id}", name="event_subscribe", methods={"GET"})
      */
-    public function subscribe(Request $request, Event $event): Response
+    public function attend(Request $request, Event $event): Response
     {
         $user = $this->getUser();
         $user->addEventToUser($event);
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->render('event/subscribe.html.twig');
+        return $this->render('event/attend.html.twig');
     }
 
     /**
      * @Route("/unsubscribe/{id}", name="event_unsubscribe", methods={"GET"})
      */
-    public function unsubscribe(Request $request, Event $event): Response
+    public function notAttend(Request $request, Event $event): Response
     {
         $user = $this->getUser();
         $user->removeEventfromUser($event);
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->render('event/unsubscribe.html.twig');
+        return $this->render('event/notAttend.twig');
     }
 
 }

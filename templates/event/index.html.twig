@@ -33,9 +33,9 @@
                     <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
                     {% if isLoged  %}
                         {% if event in subscribed %}
-                            <a href="{{ path('event_unsubscribe', {'id': event.id}) }}">Unsubscribe</a>
+                            <a href="{{ path('event_unsubscribe', {'id': event.id}) }}">Not Attend</a>
                         {% else %}
-                            <a href="{{ path('event_subscribe', {'id': event.id}) }}">Subscribe</a>
+                            <a href="{{ path('event_subscribe', {'id': event.id}) }}">Attend</a>
                         {% endif %}
                     {% endif %}
                 </td>
