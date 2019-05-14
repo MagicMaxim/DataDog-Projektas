@@ -8,6 +8,7 @@ use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -18,6 +19,7 @@ class EventController extends AbstractController
     /**
      * @Route("/", name="event_index", methods={"GET"})
      */
+
     public function index(EventRepository $eventRepository): Response
     {
         $user = $this->getUser();
@@ -26,13 +28,16 @@ class EventController extends AbstractController
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
             'isLoged' => $this->isGranted('ROLE_USER'),
+            'isAdmin' => $this->isGranted('ROLE_ADMIN'),
             'subscribed' => $user === null ? '' : $user->getAllUserEvents()
         ]);
     }
 
     /**
      * @Route("/new", name="event_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
+
     public function new(Request $request): Response
     {
         $event = new Event();
@@ -60,11 +65,13 @@ class EventController extends AbstractController
     {
         return $this->render('event/show.html.twig', [
             'event' => $event,
+            'isAdmin' => $this->isGranted('ROLE_ADMIN'),
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function edit(Request $request, Event $event): Response
     {
@@ -87,6 +94,7 @@ class EventController extends AbstractController
 
     /**
      * @Route("/{id}", name="event_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, Event $event): Response
     {

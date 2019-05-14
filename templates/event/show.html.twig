@@ -40,7 +40,14 @@
 
     <a href="{{ path('event_index') }}">back to list</a>
 
-    <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
+{% if isAdmin  %}
+
+<a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
+{% endif %}
+
+{% if isAdmin  %}
 
     {{ include('event/_delete_form.html.twig') }}
+{% endif %}
+
 {% endblock %}
