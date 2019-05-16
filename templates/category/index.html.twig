@@ -1,0 +1,43 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories{% endblock %}
+
+{% block body %}
+    <h1>All categories</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Category Name</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.name }}</td>
+                {% if isAdmin  %}
+
+                <td>
+                <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                    {% endif %}
+
+                </td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation text-center">
+        {{ knp_pagination_render(categories) }}
+    </div>
+    {% if isAdmin  %}
+        <a href="{{ path('category_new') }}">Create new</a>
+    {% endif %}
+{% endblock %}

@@ -24,7 +24,6 @@ class EventController extends AbstractController
     {
         $user = $this->getUser();
 
-
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAll(),
             'isLoged' => $this->isGranted('ROLE_USER'),
