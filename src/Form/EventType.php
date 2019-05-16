@@ -16,7 +16,7 @@ class EventType extends AbstractType
             ->add('title')
             ->add('category', ChoiceType::class, [
                 'choices'  => [
-                    'Sports' => "Sportas",
+                    'Sports' => "Sports",
                     'Science' => "Science",
                     'Art' => "Art",
                     'Entertainment' => "Entertainment",
