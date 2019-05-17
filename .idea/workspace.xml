@@ -4,11 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/DataFixtures/UserFixtures.php" line="28" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e94dff1f-c7ce-4b31-b1fa-a7014b4ea014" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Controller/EventController.php" afterPath="$PROJECT_DIR$/src/Controller/EventController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/event/index.html.twig" afterPath="$PROJECT_DIR$/templates/event/index.html.twig" />
-    </list>
+    <list default="true" id="e94dff1f-c7ce-4b31-b1fa-a7014b4ea014" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -528,12 +524,12 @@
       <workItem from="1557651768127" duration="602000" />
       <workItem from="1557833648744" duration="12748000" />
       <workItem from="1557998113005" duration="3243000" />
-      <workItem from="1558098855051" duration="302000" />
+      <workItem from="1558098855051" duration="396000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60803000" />
+    <option name="totallyTimeSpent" value="60897000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
