@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Category;
-
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/event")
  */
@@ -26,7 +25,8 @@ class EventController extends AbstractController
 
     public function index(EventRepository $eventRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $user = $this->getUser();
+
+        $user = $this->getUser();      
         $eventQuery = $eventRepository->findAllWithCategories();
         $pagination = $paginator->paginate(
             $eventQuery,
@@ -40,6 +40,8 @@ class EventController extends AbstractController
             'isAdmin' => $this->isGranted('ROLE_ADMIN'),
             'subscribed' => $user === null ? '' : $user->getAllUserEvents()
         ]);
+
+        
     }
 
     /**
