@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
-use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/event")
  */
