@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Entity\Category;
-
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Knp\Component\Pager\PaginatorInterface;
 /**
  * @Route("/event")
  */
@@ -23,17 +22,23 @@ class EventController extends AbstractController
      * @Route("/", name="event_index", methods={"GET"})
      */
 
-    public function index(EventRepository $eventRepository): Response
+    public function index(EventRepository $eventRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $user = $this->getUser();
-
-
+        $user = $this->getUser();      
+        $eventQuery = $eventRepository->findAll();
+        $pagination = $paginator->paginate(
+            $eventQuery,
+            $request->query->getInt('page', 1)/*page number*/,
+            25/*limit per page*/
+        );
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAllWithCategories(),
+            'events' => $pagination,
             'isLoged' => $this->isGranted('ROLE_USER'),
             'isAdmin' => $this->isGranted('ROLE_ADMIN'),
             'subscribed' => $user === null ? '' : $user->getAllUserEvents()
         ]);
+
+        
     }
 
     /**

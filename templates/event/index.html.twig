@@ -50,6 +50,9 @@
         {% endfor %}
         </tbody>
     </table>
+    <div class="navigation text-center">
+        {{ knp_pagination_render(events) }}
+    </div>
 {% if isAdmin  %}
     <a href="{{ path('event_new') }}">Create new</a>
 {% endif %}
