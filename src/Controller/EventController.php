@@ -27,7 +27,6 @@ class EventController extends AbstractController
     {
         $user = $this->getUser();
 
-
         return $this->render('event/index.html.twig', [
             'events' => $eventRepository->findAllWithCategories(),
             'isLoged' => $this->isGranted('ROLE_USER'),
@@ -111,7 +110,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/subscribe/{id}", name="event_subscribe", methods={"GET"})
+     * @Route("/attend/{id}", name="event_subscribe", methods={"GET"})
      */
     public function attend(Request $request, Event $event): Response
     {
@@ -123,7 +122,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/unsubscribe/{id}", name="event_unsubscribe", methods={"GET"})
+     * @Route("/noattend/{id}", name="event_unsubscribe", methods={"GET"})
      */
     public function notAttend(Request $request, Event $event): Response
     {

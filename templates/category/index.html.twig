@@ -25,6 +25,23 @@
 
                 </td>
 
+                {% if isLoged  %}
+                    {% if category in subscribed %}
+                <td>
+
+                <a href="{{ path('category_unsubscribe', {'id': category.id}) }}">Unsubscribe</a>
+                </td>
+
+                {% else %}
+                <td>
+
+                <a href="{{ path('category_subscribe', {'id': category.id}) }}">Subscribe</a>
+                </td>
+
+                    {% endif %}
+                {% endif %}
+
+
             </tr>
         {% else %}
             <tr>
