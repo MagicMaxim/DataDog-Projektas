@@ -9,6 +9,7 @@ use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
@@ -24,13 +25,15 @@ class EventController extends AbstractController
 
     public function index(EventRepository $eventRepository, Request $request, PaginatorInterface $paginator): Response
     {
+
         $user = $this->getUser();      
-        $eventQuery = $eventRepository->findAll();
+        $eventQuery = $eventRepository->findAllWithCategories();
         $pagination = $paginator->paginate(
             $eventQuery,
             $request->query->getInt('page', 1)/*page number*/,
             25/*limit per page*/
         );
+
         return $this->render('event/index.html.twig', [
             'events' => $pagination,
             'isLoged' => $this->isGranted('ROLE_USER'),
@@ -116,7 +119,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/subscribe/{id}", name="event_subscribe", methods={"GET"})
+     * @Route("/attend/{id}", name="event_subscribe", methods={"GET"})
      */
     public function attend(Request $request, Event $event): Response
     {
@@ -128,7 +131,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/unsubscribe/{id}", name="event_unsubscribe", methods={"GET"})
+     * @Route("/noattend/{id}", name="event_unsubscribe", methods={"GET"})
      */
     public function notAttend(Request $request, Event $event): Response
     {

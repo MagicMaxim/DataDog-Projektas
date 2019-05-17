@@ -47,9 +47,29 @@ class User implements UserInterface
      */
     private $usersEvents;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Category")
+     */
+    private $usersCategories;
+
     public function __construct()
     {
         $this->usersEvents = new ArrayCollection();
+        $this->usersCategories = new ArrayCollection();
+
+    }
+
+    public function addCategoryToUser(Category $category){
+        $this->usersCategories[] = $category;
+    }
+
+    public function removeCategoryfromUser(Category $category){
+        $this->usersCategories->removeElement($category);
+    }
+
+    public function getAllUserCategories()
+    {
+        return $this->usersCategories;
     }
 
      public function addEventToUser(Event $event){

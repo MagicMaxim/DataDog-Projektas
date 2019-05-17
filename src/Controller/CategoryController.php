@@ -22,6 +22,7 @@ class CategoryController extends AbstractController
      */
     public function index(CategoryRepository $categoryRepository, Request $request, PaginatorInterface $paginator) : Response
     {
+        $user = $this->getUser();
         $categoryQuery = $categoryRepository->findAll();
 
         $pagination = $paginator->paginate(
@@ -34,7 +35,8 @@ class CategoryController extends AbstractController
         return $this->render('category/index.html.twig', [
             'categories' => $pagination,
             'isLoged' => $this->isGranted('ROLE_USER'),
-            'isAdmin' => $this->isGranted('ROLE_ADMIN')
+            'isAdmin' => $this->isGranted('ROLE_ADMIN'),
+            'subscribed' => $user === null ? '' : $user->getAllUserCategories()
         ]);
     }
 
@@ -99,5 +101,29 @@ class CategoryController extends AbstractController
         }
 
         return $this->redirectToRoute('category_index');
+    }
+
+    /**
+     * @Route("/subscribe/{id}", name="category_subscribe", methods={"GET"})
+     */
+    public function subscribe(Request $request, Category $category): Response
+    {
+        $user = $this->getUser();
+        $user->addCategoryToUser($category);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->render('category/subscribe.html.twig');
+    }
+
+    /**
+     * @Route("/unsubscribe/{id}", name="category_unsubscribe", methods={"GET"})
+     */
+    public function unsubscribe(Request $request, Category $category): Response
+    {
+        $user = $this->getUser();
+        $user->removeCategoryfromUser($category);
+        $this->getDoctrine()->getManager()->flush();
+
+        return $this->render('category/unsubscribe.twig');
     }
 }
