@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Category;
+
 use App\Form\EventType;
 use App\Repository\EventRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class EventController extends AbstractController
 {
+    private $category;
     /**
      * @Route("/", name="event_index", methods={"GET"})
      */
@@ -24,8 +27,9 @@ class EventController extends AbstractController
     {
         $user = $this->getUser();
 
+
         return $this->render('event/index.html.twig', [
-            'events' => $eventRepository->findAll(),
+            'events' => $eventRepository->findAllWithCategories(),
             'isLoged' => $this->isGranted('ROLE_USER'),
             'isAdmin' => $this->isGranted('ROLE_ADMIN'),
             'subscribed' => $user === null ? '' : $user->getAllUserEvents()

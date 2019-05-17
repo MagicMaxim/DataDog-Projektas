@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query\Expr\Join;
+
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,19 @@ class EventRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Event::class);
+    }
+
+    public function findAllWithCategories()
+    {
+
+        return $this->createQueryBuilder('e')
+            ->join('e.category', 'c')
+            ->addSelect('c')->getQuery()
+            ->getResult();
+
+
+
+
     }
 
     // /**

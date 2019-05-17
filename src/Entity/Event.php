@@ -22,7 +22,8 @@ class Event
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $category;
 
@@ -65,12 +66,12 @@ class Event
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(string $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 
