@@ -4,7 +4,23 @@
 
 {% block body %}
     <h1>Event index</h1>
-<div class="h1">
+
+
+
+    <div>
+        <form action="{{ path('filter') }}" method="get">
+            <label for="filter">Title</label>
+            <input name="filter" type="text">
+            <label for="filter2">Category</label>
+            <input name="filter2" type="text">
+            <label for="filter2">Date</label>
+            <input name="filter2" type="text">
+            <label for="filter2">Price</label>
+            <input name="filter2" type="text">
+            <button type="submit" class="btn btn-default btn-sm">Filter Now</button>
+        </form>
+
+
     <table class="table">
         <thead>
             <tr>

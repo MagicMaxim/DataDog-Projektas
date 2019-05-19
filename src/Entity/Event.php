@@ -125,4 +125,18 @@ class Event
 
         return $this;
     }
+
+    
+    /**
+     * @return mixed
+     */
+    function Serialize()
+    {
+        return [
+            'category' => $this->category,
+            'title' => $this->title,
+            'date'  => $this->date,
+            'price'  => $this->price,
+        ];
+    }
 }
