@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Event index</h1>
 
+
+
     <div>
         <form action="{{ path('filter') }}" method="get">
             <label for="filter">Title</label>
@@ -17,12 +19,11 @@
             <input name="filter2" type="text">
             <button type="submit" class="btn btn-default btn-sm">Filter Now</button>
         </form>
-    </div>
+
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Title</th>
                 <th>Category</th>
                 <th>Description</th>
@@ -35,7 +36,6 @@
         <tbody>
         {% for event in events %}
             <tr>
-                <td>{{ event.id }}</td>
                 <td>{{ event.title }}</td>
                 <td>{{ event.category.name }}</td>
                 <td>{{ event.description }}</td>
@@ -70,5 +70,5 @@
 {% if isAdmin  %}
     <a href="{{ path('event_new') }}">Create new</a>
 {% endif %}
-
+</div>
 {% endblock %}

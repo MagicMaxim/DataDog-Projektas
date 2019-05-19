@@ -1,12 +1,13 @@
-
-{% extends 'base.html.twig' %}
-
-{% block title %}Users{% endblock %}
-
+<title>Users</title>
+{% block stylesheets %}
+    <link  rel="stylesheet"  href="css\RegCss.css">
+{% endblock %}
 {% block body %}
-    <h1>All users</h1>
+    <div class="form">
+        <form class="register-form">
+                <h1>All users</h1>
 
-    <table class="table">
+    <table>
         <thead>
         <tr>
             <th>Username</th>
@@ -36,5 +37,7 @@
     <div class="navigation text-center">
         {{ knp_pagination_render(users) }}
     </div>
+            </form>
 
+</div>
 {% endblock %}

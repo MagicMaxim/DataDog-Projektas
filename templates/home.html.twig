@@ -1,19 +1,46 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Home{% endblock %}
+
+<title>{% block title %}Home{% endblock %}</title>
+                {% block stylesheets %}
+                    <link  rel="stylesheet"  href="css\style.css">
+                {% endblock %}
 
 {% block body %}
-<h1>Data_Dog Project</h1>
-    {% if isLoged  %}
-        <a href="{{ path('app_logout') }}">Logout</a>
-    {% else %}
-        <a href="{{ path('app_login') }}">Log in page</a>
-    {% endif %}
-<a href="{{ path('event_index') }}">Event CRUD</a>
-    <a href="{{ path('category_index') }}">All categories</a>
 
-    {% if isAdmin  %}
-        <a href="{{ path('user_index') }}">All users</a>
-    {% endif %}
+<body>
+    <header>
+        
+    <div class="row">
+        <div class="logo">
+        <img src="images\KTU.jpg"
+        </div>
+            
+    <ul class="main-nav">
+        {% if isLoged  %}
+        <li><a href="{{ path('app_logout') }}"> LOGOUT </a></li>
+        {% else %}
+        <li><a href="{{ path('app_login') }}"> LOGIN </a></li>    
+        {% endif %}
+        {% if isAdmin  %} 
+        <li><a href="{{ path('user_index') }}"> USER LIST </a></li>         
+        {% endif %}
+    </ul>    
+        
+    </div>
+        
+    <div class="hero">
+    <h1>DREAM MEME TEAM EVENTS</h1>
+        
+    <div class="button">
+        <a href="{{ path('event_index') }}" class="btn btn-one"> EVENTS</a>
+        <a href="{{ path('category_index') }}" class="btn btn-two"> CATEGORIES</a>    
+    </div>    
+            
+    </div>
+    
+    </header>
 
+
+        
+</body> 
 {% endblock %}
