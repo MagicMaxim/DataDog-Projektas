@@ -8,11 +8,12 @@
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.username) }}
         {{ form_row(registrationForm.plainPassword) }}
+       
       <button class="btn">Register</button>
       <p class="message">Already registered? <a href="login">Sign In</a></p>
     </form>
  </div>
+      {{ form_end(registrationForm) }}
       </div>
-    {{ form_end(registrationForm) }}
 {% endblock %}
 
