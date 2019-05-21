@@ -38,6 +38,16 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string
+     *
+     * @Assert\Length(
+     *     min=6,
+     *     minMessage = "Password must atleast be {{ limit }} of length"
+     * )
+     */
+    private $newPassword;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $email;
@@ -140,7 +150,20 @@ class User implements UserInterface
 
         return $this;
     }
-
+    /**
+     * @return string
+     */
+    public function getNewPassword()
+    {
+        return $this->newPassword;
+    }
+    /**
+     * @param string $newPassword
+     */
+    public function setNewPassword(string $newPassword)
+    {
+        $this->newPassword = $newPassword;
+    }
     /**
      * @see UserInterface
      */

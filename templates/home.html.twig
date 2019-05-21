@@ -18,6 +18,7 @@
     <ul class="main-nav">
         {% if isLoged  %}
         <li><a href="{{ path('app_logout') }}"> LOGOUT </a></li>
+        <li><a href="{{ path('app_profile') }}"> PROFILE </a></li>
         {% else %}
         <li><a href="{{ path('app_login') }}"> LOGIN </a></li>    
         {% endif %}
