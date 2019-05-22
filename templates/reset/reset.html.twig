@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset password!{% endblock %}
+
+{% block body %}
+    <form method="post">
+
+    <div class="container">
+        {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {{ parent() }}
+
+        {% if error is defined and error is not empty %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> {{ error }}
+                    <a href="{{ path('index') }}">Home</a>
+                </div>
+         {% endif %}
+         {% if success is defined and success is not empty %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> {{ success }}
+                    <a href="{{ path('index') }}">Home</a>
+                </div>
+            {% endif %}
+
+    <div class="container">
+        {{ form_start(form) }}
+        {% if action == "reset" %}
+        <h1 class="h3 mb-3 font-weight-normal">Password change</h1>
+            Email: {{ form_widget(form.email) }}<br />
+        {% else %}
+         <h1 class="h3 mb-3 font-weight-normal">Password reset</h1>
+            {{ form_errors(form.password.first) }}
+            New password: {{ form_widget(form.password.first) }}<br />
+            New password repeated: {{ form_widget(form.password.second) }}<br />
+        {% endif %}
+        {{ form_errors(form) }}
+        {{ form(form, {'method': 'POST'}) }}
+    </div>
+{% endblock %}

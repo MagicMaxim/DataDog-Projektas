@@ -56,7 +56,11 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity="Event")
      */
     private $usersEvents;
-
+    /**
+     * @ORM\Column(name="passwordResetToken", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
+     */
+    private $passwordResetToken;
     /**
      * @ORM\ManyToMany(targetEntity="Category")
      */
@@ -68,7 +72,20 @@ class User implements UserInterface
         $this->usersCategories = new ArrayCollection();
 
     }
-
+    /**
+     * @return null|string
+     */
+    public function getPasswordResetToken()
+    {
+        return $this->passwordResetToken;
+    }
+    /**
+     * @param null|string $passwordResetTokenProfile
+     */
+    public function setPasswordResetToken($passwordResetToken)
+    {
+        $this->passwordResetToken = $passwordResetToken;
+    }
     public function addCategoryToUser(Category $category){
         $this->usersCategories[] = $category;
     }

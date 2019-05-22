@@ -5,3 +5,6 @@ index:
 login:
     path: /login
     controller: App\Controller\SecurityController::login
+reset:
+    path: /reset
+    controller: App\Controller\PasswordResetController::reset
