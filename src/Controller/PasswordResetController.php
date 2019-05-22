@@ -6,7 +6,6 @@ use App\Entity\PasswordChange;
 use App\Entity\User;
 use App\Form\NewPasswordType;
 use App\Form\ResetPasswordType;
-
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

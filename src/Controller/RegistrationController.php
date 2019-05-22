@@ -17,7 +17,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator, \Swift_Mailer $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -36,8 +36,20 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
-
+            $message = (new \Swift_Message('Succesfully registered'))
+                    ->setFrom('DMTprojektas@gmail.com')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'registration/confirmationMail.html.twig',
+                            array(
+                                'username' => $user->getUsername()
+                            )
+                        ),
+                        'text/html'
+                    )
+                ;
+            $mailer->send($message);
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
