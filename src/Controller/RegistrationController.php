@@ -31,11 +31,13 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            $user->setConfirmation(FALSE);
             $entityManager = $this->getDoctrine()->getManager();
+            $passwordResetToken = base64_encode(random_bytes(20));
+            $passwordResetToken = str_replace("/","",$passwordResetToken); // because / will make errors with routes
+            $user->setPasswordResetToken($passwordResetToken);
             $entityManager->persist($user);
             $entityManager->flush();
-
             $message = (new \Swift_Message('Succesfully registered'))
                     ->setFrom('DMTprojektas@gmail.com')
                     ->setTo($user->getEmail())
@@ -43,6 +45,7 @@ class RegistrationController extends AbstractController
                         $this->renderView(
                             'registration/confirmationMail.html.twig',
                             array(
+                                'token' => $passwordResetToken,
                                 'username' => $user->getUsername()
                             )
                         ),
@@ -61,5 +64,22 @@ class RegistrationController extends AbstractController
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+    /**
+     * @Route("/confirmation/{token}", name="app_confirmation")
+     */
+    public function Confirmation(Request $request, $token, UserPasswordEncoderInterface $encoder)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['passwordResetToken' => $token]);
+        if($user != null)
+        {
+            $em = $this->getDoctrine()->getManager();
+            $user->setPasswordResetToken(NULL);
+            $user->setConfirmation(TRUE);
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('index');
+        }
+        return $this->redirectToRoute('index');
     }
 }

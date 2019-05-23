@@ -28,6 +28,7 @@ class UserFixtures extends Fixture
             $plainPassword = 'password';
             $user->setEmail('email'.$i.'@email.com');
             $user->setRoles(array('ROLE_ADMIN'));
+            $user->setConfirmation(TRUE);
             $encoded = $this->passwordEncoder->encodePassword($user, $plainPassword);
             $user->setPassword($encoded);
             $manager->persist($user);
