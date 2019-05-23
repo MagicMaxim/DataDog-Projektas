@@ -31,7 +31,6 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-            $user->setConfirmation(FALSE);
             $entityManager = $this->getDoctrine()->getManager();
             $passwordResetToken = base64_encode(random_bytes(20));
             $passwordResetToken = str_replace("/","",$passwordResetToken); // because / will make errors with routes
@@ -75,7 +74,7 @@ class RegistrationController extends AbstractController
         {
             $em = $this->getDoctrine()->getManager();
             $user->setPasswordResetToken(NULL);
-            $user->setConfirmation(TRUE);
+            $user->setRoles(array('ROLE_CONFIRMED'));
             $em->persist($user);
             $em->flush();
             return $this->redirectToRoute('index');

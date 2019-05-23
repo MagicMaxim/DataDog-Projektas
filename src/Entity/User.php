@@ -65,12 +65,7 @@ class User implements UserInterface
      * @ORM\ManyToMany(targetEntity="Category")
      */
     private $usersCategories;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $confirmation;
-
+    
     public function __construct()
     {
         $this->usersEvents = new ArrayCollection();
@@ -211,18 +206,6 @@ class User implements UserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
-
-        return $this;
-    }
-
-    public function getConfirmation(): ?bool
-    {
-        return $this->confirmation;
-    }
-
-    public function setConfirmation(bool $confirmation): self
-    {
-        $this->confirmation = $confirmation;
 
         return $this;
     }

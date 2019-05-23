@@ -13,6 +13,7 @@ class DefaultController extends AbstractController
         return $this->render('home.html.twig', [
             'isLoged' => $this->isGranted('ROLE_USER'),
             'isAdmin' => $this->isGranted('ROLE_ADMIN'),
+            'isConfirmed' => $this->isGranted('ROLE_CONFIRMED')
         ]);
     }
 }

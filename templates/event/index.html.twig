@@ -6,7 +6,6 @@
     <h1>Event index</h1>
 
 
-
     <div>
         <form action="{{ path('filter') }}" method="get">
             <label for="filter">Title</label>
@@ -48,11 +47,16 @@
                     <a href="{{ path('event_edit', {'id': event.id}) }}">edit</a>
                     {% endif %}
                     {% if isLoged  %}
+                    {% if isConfirmed  %}
+                    
                         {% if event in subscribed %}
                             <a href="{{ path('event_unsubscribe', {'id': event.id}) }}">Not Attend</a>
                         {% else %}
                             <a href="{{ path('event_subscribe', {'id': event.id}) }}">Attend</a>
+                        
+
                         {% endif %}
+                    {% endif %}
                     {% endif %}
                 </td>
 
