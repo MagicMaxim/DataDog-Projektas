@@ -110,7 +110,6 @@ class Event
     public function setPrice(float $price): self
     {
         $this->price = $price;
-
         return $this;
     }
 

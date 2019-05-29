@@ -9,6 +9,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\GreaterThanOrEqual;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 
 
 class EventType extends AbstractType
@@ -23,8 +28,22 @@ class EventType extends AbstractType
             ))
             ->add('description')
             ->add('location')
-            ->add('price')
-            ->add('date')
+            ->add('price', IntegerType::class,  [
+                'constraints' => [
+                    new GreaterThanOrEqual([
+                        'value' => 0,
+                        'message' => 'This value cannot be lower than 0',
+                    ]),
+                ],
+            ])
+            ->add('date', DateTimeType::class,  [
+                'constraints' => [
+                    new GreaterThanOrEqual([
+                        'value' => ('today'),
+                        'message' => 'You cannot choose past days',
+                    ]),
+                ],
+            ])
         ;
     }
 
