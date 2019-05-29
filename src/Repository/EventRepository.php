@@ -6,7 +6,8 @@ use App\Entity\Event;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Query\Expr\Join;
-
+use Doctrine\ORM\QueryBuilder;
+use App\Repository\DateTime;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -23,15 +24,39 @@ class EventRepository extends ServiceEntityRepository
 
     public function findAllWithCategories()
     {
-
         return $this->createQueryBuilder('e')
             ->join('e.category', 'c')
             ->addSelect('c')->getQuery()
             ->getResult();
+    }
 
-
-
-
+    public function getEventsByCriteria(?string $title, ?string $description, ?string $price, ?string $location): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('e');
+        if($title){
+            $qb->andWhere($qb->expr()->like('e.title', ':title'))
+                ->setParameter('title', '%'. $title. '%');
+        }
+        if($description){
+            $qb->andWhere($qb->expr()->like('e.description', ':description'))
+                ->setParameter('description', '%'. $description. '%');
+        }
+        
+        if($price || $price == 0){
+            $price = strpos($price, '.') ?  $price : $price . ".00";
+            $qb->andWhere($qb->expr()->like('e.price', ':price'))
+                ->setParameter('price', $price);
+        }
+        if($location){
+            $qb->andWhere($qb->expr()->like('e.location', ':location'))
+                ->setParameter('location', '%'. $location. '%');
+        }
+        return $qb;
+    }
+    public function getWithSearchQueryBuilder(): QueryBuilder
+    {
+        $qb = $this->_em->createQueryBuilder();
+        return  $qb->select('e')->from($this->_entityName, 'e');
     }
 
     // /**
