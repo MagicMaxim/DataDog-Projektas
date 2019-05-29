@@ -167,9 +167,14 @@ tbody:hover tr:hover td {
     <table class="table">
         <thead>
         <tr>
+            {%if isAdmin%}
             <th>Category Name</th>
             <th>Edit</th>
             <th>Subscribe</th>
+            {% else %}
+            <th>Category Name</th>
+            <th>Subscribe</th>
+
         </tr>
         </thead>
         <tbody>
@@ -198,6 +203,10 @@ tbody:hover tr:hover td {
                 </td>
 
                     {% endif %}
+                 {%else%}
+                     <td>
+                         {{"You need to log in to subscribe"}}
+                         </td>
                 {% endif %}
 
 
@@ -208,6 +217,7 @@ tbody:hover tr:hover td {
             </tr>
         {% endfor %}
         </tbody>
+        {%endif%}
     </table>
 
     <div class="navigation text-center">
