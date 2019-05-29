@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\EventFilterType;
+use App\Repository\DateTime;
 /**
  * @Route("/event")
  */
@@ -24,7 +26,6 @@ class EventController extends AbstractController
 
     public function index(EventRepository $eventRepository, Request $request, PaginatorInterface $paginator): Response
     {
-
         $user = $this->getUser();      
         $eventQuery = $eventRepository->findAllWithCategories();
         $pagination = $paginator->paginate(
@@ -35,6 +36,7 @@ class EventController extends AbstractController
 
         return $this->render('event/index.html.twig', [
             'events' => $pagination,
+            'form' => $form->createView(),
             'isLoged' => $this->isGranted('ROLE_USER'),
             'isAdmin' => $this->isGranted('ROLE_ADMIN'),
             'isConfirmed' => $this->isGranted('ROLE_CONFIRMED'),
@@ -141,30 +143,4 @@ class EventController extends AbstractController
 
         return $this->render('event/notAttend.twig');
     }
-     /**
-     * @Route("/", name="filter")
-     */
-    public function filter(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $queryBuilder = $em->getRepository('App:Event')->createQueryBuilder('e');
-
-        if ($request->query->getAlnum('filter')) {
-            $queryBuilder->where('e.title LIKE :title')
-                ->setParameter('title', '%' . $request->query->getAlnum('filter') . '%');
-        }
-        if ($request->query->getAlnum('filter2')) {
-            $queryBuilder->where('e.category LIKE :category')
-                ->setParameter('category', '%' . $request->query->getAlnum('filter2') . '%');
-        }
-        if ($request->query->getAlnum('filter3')) {
-            $queryBuilder->where('e.date LIKE :date')
-                ->setParameter('date', '%' . $request->query->getAlnum('filter3') . '%');
-        }
-        if ($request->query->getAlnum('filter4')) {
-            $queryBuilder->where('e.price LIKE :price')
-                ->setParameter('price', '%' . $request->query->getAlnum('filter4') . '%');
-        }
-    }
-
 }   

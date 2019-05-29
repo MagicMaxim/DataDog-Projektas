@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -123,19 +125,5 @@ class Event
         $this->date = $date;
 
         return $this;
-    }
-
-    
-    /**
-     * @return mixed
-     */
-    function Serialize()
-    {
-        return [
-            'category' => $this->category,
-            'title' => $this->title,
-            'date'  => $this->date,
-            'price'  => $this->price,
-        ];
     }
 }
